@@ -3,137 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCII Art by OM9!!</title>
+    <title>OMARZOU991 - Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <style>
+        /* Le CSS reste le même que précédemment */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --card-bg: #f5f5f5;
+            --hover-color: #e0e0e0;
+            --accent-color: #4a90e2;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2d2d2d;
+            --hover-color: #3d3d3d;
+            --accent-color: #64b5f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
         body {
-            font-family: monospace;
-            background-color: #121212;
-            color: white;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            background-color: var(--card-bg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
         }
-        h1 {
+
+        .profile {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: 2rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .profile h1 {
             font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            animation: gradientFlow 8s linear infinite;
         }
-        input {
-            padding: 12px;
-            margin: 10px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            background: #222;
-            color: white;
-            width: 300px;
-            text-align: center;
-        }
-        button {
-            padding: 12px 24px;
-            font-size: 18px;
-            cursor: pointer;
-            background: linear-gradient(90deg, #ff00ff, #00ffff);
-            border: none;
-            border-radius: 5px;
-            color: white;
-            transition: 0.3s;
-        }
-        button:hover {
-            opacity: 0.8;
-        }
-        .output-container {
-            position: relative;
-            display: inline-block;
-        }
-        pre {
-            background-color: #222;
-            padding: 20px;
-            border-radius: 10px;
-            white-space: pre;
-            font-size: 16px;
-            overflow-x: auto;
-            width: 80%;
+
+        .profile p {
+            font-size: 1.2rem;
             max-width: 600px;
-            text-align: left;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
         }
-        .copy-btn {
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            gap: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .social-link i {
+            font-size: 1.8rem;
+            width: 30px;
+            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .social-links .social-link:nth-child(1) { animation-delay: 0.1s; }
+        .social-links .social-link:nth-child(2) { animation-delay: 0.2s; }
+        .social-links .social-link:nth-child(3) { animation-delay: 0.3s; }
+        .social-links .social-link:nth-child(4) { animation-delay: 0.4s; }
+        .social-links .social-link:nth-child(5) { animation-delay: 0.5s; }
+        .social-links .social-link:nth-child(6) { animation-delay: 0.6s; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .profile h1 {
+                font-size: 2.5rem;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body>
-    <h1>ASCII Art by OM9!!</h1>
-    <input type="text" id="textInput" placeholder="Entrez votre texte ici...">
-    <button onclick="convertToAscii()">Convertir</button>
-    <div class="output-container">
-        <pre id="asciiOutput">Le résultat apparaîtra ici...</pre>
-        <button class="copy-btn" onclick="copyToClipboard()">📋</button>
+<body data-theme="dark">
+    <button id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <div class="profile">
+            <h1>OMARZOU991</h1>
+            <p>Jeune Développeur | Créateur de Contenu</p>
+            <p>Je crée des expériences numériques uniques et partage ma passion pour le développement.</p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.youtube.com/@BIG-FAN666" class="social-link" target="_blank">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+            <a href="https://www.tiktok.com/@omar__777_ff?lang=fr" class="social-link" target="_blank">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+            <a href="https://github.com/OMARZOU991" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://discord.gg/4VJcDVHHfa" class="social-link" target="_blank">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+            </a>
+            <a href="https://omarzou991.itch.io/" class="social-link" target="_blank">
+                <i class="fas fa-gamepad"></i>
+                <span>Itch.io</span>
+            </a>
+            <a href="https://www.instagram.com/omar_zouaui/" class="social-link" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+        </div>
     </div>
-    
+
     <script>
-        const asciiLetters = {
-            'A': ['  █  ', ' █ █ ', '█████', '█   █'],
-            'B': ['████ ', '█   █', '████ ', '█   █'],
-            'C': [' ████', '█    ', '█    ', ' ████'],
-            'D': ['████ ', '█   █', '█   █', '████ '],
-            'E': ['█████', '███  ', '█    ', '█████'],
-            'F': ['█████', '███  ', '█    ', '█    '],
-            'G': [' ████', '█    ', '█  ██', ' ████'],
-            'H': ['█   █', '█████', '█   █', '█   █'],
-            'I': ['█████', '  █  ', '  █  ', '█████'],
-            'J': ['    █', '    █', '█   █', ' ███ '],
-            'K': ['█  █ ', '███  ', '█  █ ', '█   █'],
-            'L': ['█    ', '█    ', '█    ', '█████'],
-            'M': ['█   █', '██ ███', '█ █ █', '█   █'],
-            'N': ['█   █', '██  █', '█ █ █', '█  ██'],
-            'O': [' ███ ', '█   █', '█   █', ' ███ '],
-            'P': ['████ ', '█   █', '████ ', '█    '],
-            'Q': [' ███ ', '█   █', '█ █ █', ' ████'],
-            'R': ['████ ', '█   █', '████ ', '█  █ '],
-            'S': [' ████', '█    ', ' ███ ', '████ '],
-            'T': ['█████', '  █  ', '  █  ', '  █  '],
-            'U': ['█   █', '█   █', '█   █', ' ███ '],
-            'V': ['█   █', '█   █', ' █ █ ', '  █  '],
-            'W': ['█   █', '█ █ █', '█ █ █', ' ███ '],
-            'X': ['█   █', ' █ █ ', ' █ █ ', '█   █'],
-            'Y': ['█   █', ' █ █ ', '  █  ', '  █  '],
-            'Z': ['█████', '   █ ', '  █  ', '█████'],
-            ' ': ['     ', '     ', '     ', '     ']
-        };
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
 
-        function convertToAscii() {
-            let text = document.getElementById("textInput").value.toUpperCase();
-            let lines = ['', '', '', ''];
-            
-            for (let char of text) {
-                let pattern = asciiLetters[char] || asciiLetters[' '];
-                for (let i = 0; i < pattern.length; i++) {
-                    lines[i] += pattern[i] + ' ';
-                }
+        // Fonction pour mettre à jour l'icône
+        function updateThemeIcon(isDark) {
+            if (isDark) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
             }
-            
-            document.getElementById("asciiOutput").textContent = lines.join('\n');
         }
 
-        function copyToClipboard() {
-            let output = document.getElementById("asciiOutput").textContent;
-            navigator.clipboard.writeText(output);
-            alert("Texte copié!");
-        }
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.hasAttribute('data-theme');
+            if (isDark) {
+                document.body.removeAttribute('data-theme');
+                updateThemeIcon(false);
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                updateThemeIcon(true);
+            }
+        });
     </script>
 </body>
 </html>
