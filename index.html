@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OMARZOU991 - Portfolio</title>
+    <title>OMARZOU991</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <style>
-        /* Le CSS reste le même que précédemment */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
         :root {
@@ -15,14 +14,18 @@
             --card-bg: #f5f5f5;
             --hover-color: #e0e0e0;
             --accent-color: #4a90e2;
+            --gradient-start: #4a90e2;
+            --gradient-end: #ff6b6b;
         }
 
         [data-theme="dark"] {
-            --bg-color: #1a1a1a;
+            --bg-color: #121212;
             --text-color: #ffffff;
-            --card-bg: #2d2d2d;
-            --hover-color: #3d3d3d;
+            --card-bg: #1e1e1e;
+            --hover-color: #2d2d2d;
             --accent-color: #64b5f6;
+            --gradient-start: #64b5f6;
+            --gradient-end: #ff7b7b;
         }
 
         * {
@@ -37,17 +40,20 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         #theme-toggle {
             position: fixed;
             top: 20px;
             left: 20px;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             background-color: var(--card-bg);
             cursor: pointer;
             display: flex;
@@ -55,12 +61,12 @@
             justify-content: center;
             font-size: 1.2rem;
             color: var(--text-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            z-index: 1000;
         }
 
         #theme-toggle:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(15deg);
         }
 
         .container {
@@ -70,29 +76,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            flex-grow: 1;
         }
 
         .profile {
             text-align: center;
-            margin-bottom: 3rem;
-            margin-top: 2rem;
+            margin: 4rem 0;
             animation: fadeInDown 1s ease-out;
         }
 
         .profile h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
             animation: gradientFlow 8s linear infinite;
         }
 
         .profile p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 1rem auto;
             opacity: 0;
             animation: fadeIn 1s ease-out forwards;
             animation-delay: 0.5s;
@@ -100,22 +106,22 @@
 
         .social-links {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin-top: 2rem;
         }
 
         .social-link {
             display: flex;
             align-items: center;
-            padding: 1.2rem;
+            padding: 1.5rem;
             background-color: var(--card-bg);
-            border-radius: 15px;
+            border-radius: 20px;
             text-decoration: none;
             color: var(--text-color);
-            gap: 1rem;
+            gap: 1.2rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             opacity: 0;
             animation: fadeInUp 0.5s ease-out forwards;
@@ -133,7 +139,7 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255,255,255,0.2),
+                rgba(255,255,255,0.1),
                 transparent
             );
             transition: 0.5s;
@@ -144,22 +150,35 @@
         }
 
         .social-link:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
         .social-link i {
-            font-size: 1.8rem;
-            width: 30px;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b6b);
+            font-size: 2rem;
+            width: 40px;
+            background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+
+        .social-link span {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
 
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -170,7 +189,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -183,36 +202,44 @@
             to { opacity: 1; }
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .social-links .social-link:nth-child(1) { animation-delay: 0.1s; }
-        .social-links .social-link:nth-child(2) { animation-delay: 0.2s; }
-        .social-links .social-link:nth-child(3) { animation-delay: 0.3s; }
-        .social-links .social-link:nth-child(4) { animation-delay: 0.4s; }
-        .social-links .social-link:nth-child(5) { animation-delay: 0.5s; }
-        .social-links .social-link:nth-child(6) { animation-delay: 0.6s; }
+        .social-links .social-link:nth-child(1) { animation-delay: 0.2s; }
+        .social-links .social-link:nth-child(2) { animation-delay: 0.3s; }
+        .social-links .social-link:nth-child(3) { animation-delay: 0.4s; }
+        .social-links .social-link:nth-child(4) { animation-delay: 0.5s; }
+        .social-links .social-link:nth-child(5) { animation-delay: 0.6s; }
+        .social-links .social-link:nth-child(6) { animation-delay: 0.7s; }
 
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
             }
 
+            .profile {
+                margin: 3rem 0;
+            }
+
             .profile h1 {
                 font-size: 2.5rem;
             }
 
+            .profile p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
             .social-links {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .social-link {
+                padding: 1.2rem;
             }
         }
     </style>
@@ -225,43 +252,54 @@
     <div class="container">
         <div class="profile">
             <h1>OMARZOU991</h1>
-            <p>Jeune Développeur | Créateur de Contenu</p>
-            <p>Je crée des expériences numériques uniques et partage ma passion pour le développement.</p>
+            <p>Young Developer | Content Creator</p>
+            <p>I create unique digital experiences and share my passion for development.</p>
+            <p>co-founder of NGZ</p>
         </div>
 
         <div class="social-links">
-            <a href="https://www.youtube.com/@BIG-FAN666" class="social-link" target="_blank">
-                <i class="fab fa-youtube"></i>
-                <span>YouTube</span>
-            </a>
-            <a href="https://www.tiktok.com/@omar__777_ff?lang=fr" class="social-link" target="_blank">
-                <i class="fab fa-tiktok"></i>
-                <span>TikTok</span>
-            </a>
-            <a href="https://github.com/OMARZOU991" class="social-link" target="_blank">
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
-            </a>
-            <a href="https://discord.gg/4VJcDVHHfa" class="social-link" target="_blank">
+            <a href="https://discord.gg/JxKD3hMH4s" class="social-link" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-discord"></i>
                 <span>Discord</span>
             </a>
-            <a href="https://omarzou991.itch.io/" class="social-link" target="_blank">
+            <a href="https://www.youtube.com/@BIG-FAN666" class="social-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+            <a href="https://github.com/OMARZOU991" class="social-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://discord.gg/4VJcDVHHfa" class="social-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+            </a>
+            <a href="https://omarzou991.itch.io/" class="social-link" target="_blank" rel="noopener noreferrer">
                 <i class="fas fa-gamepad"></i>
                 <span>Itch.io</span>
             </a>
-            <a href="https://www.instagram.com/omar_zouaui/" class="social-link" target="_blank">
-                <i class="fab fa-instagram"></i>
-                <span>Instagram</span>
+            <a href="https://github.com/abgache" class="social-link" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+                <span>abgache github</span>
             </a>
         </div>
     </div>
 
+    <footer>
+        <p>&copy; 2025 OMARZOU991. Tous droits réservés.</p>
+    </footer>
+
     <script>
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle.querySelector('i');
+        
+        // Vérifier la préférence de thème enregistrée
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme === 'dark');
+        }
 
-        // Fonction pour mettre à jour l'icône
         function updateThemeIcon(isDark) {
             if (isDark) {
                 themeIcon.classList.remove('fa-sun');
@@ -276,9 +314,11 @@
             const isDark = document.body.hasAttribute('data-theme');
             if (isDark) {
                 document.body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
                 updateThemeIcon(false);
             } else {
                 document.body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
                 updateThemeIcon(true);
             }
         });
