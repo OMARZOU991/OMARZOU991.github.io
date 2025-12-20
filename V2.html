@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMARZOU991 - Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --card-bg: #1a1a1a;
+            --hover-color: #252525;
+            --accent-color: #ffffff;
+            --accent-secondary: #888888;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --text-color: #0a0a0a;
+            --card-bg: #f5f5f5;
+            --hover-color: #e0e0e0;
+            --accent-color: #0a0a0a;
+            --accent-secondary: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-trail {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            opacity: 0.5;
+        }
+
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] nav {
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        [data-theme="light"] .nav-btn {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            background: var(--hover-color);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+            border: 3px solid var(--accent-color);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-img::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            animation: fadeInUp 1s ease;
+            letter-spacing: 3px;
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            height: 2rem;
+            color: var(--accent-secondary);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            margin: 1rem 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        [data-theme="light"] .status-badge {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .status-badge::before {
+            content: '🟢';
+            margin-right: 0.5rem;
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--accent-color);
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        [data-theme="light"] .game-card {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .game-card:hover {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-img::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.8));
+        }
+
+        .game-content {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-desc {
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            gap: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        [data-theme="light"] .social-link {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        [data-theme="light"] .social-link::before {
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent);
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .social-link i {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        [data-theme="light"] .contact-form {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        [data-theme="light"] .form-group input,
+        [data-theme="light"] .form-group textarea {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent-color);
+            border: none;
+            border-radius: 10px;
+            color: var(--bg-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent-color);
+            z-index: 10001;
+            transition: width 0.1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            nav { padding: 1rem; }
+            .nav-buttons { gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div class="cursor"></div>
+    <div class="cursor-trail"></div>
+    <div class="progress-bar"></div>
+    <canvas id="particles"></canvas>
+
+    <nav>
+        <div class="logo">OMARZOU991</div>
+        <div class="nav-buttons">
+            <select id="lang-switch" class="nav-btn">
+                <option value="en">🇬🇧 EN</option>
+                <option value="fr">🇫🇷 FR</option>
+                <option value="ar">🇹🇳 AR</option>
+            </select>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="profile-img">
+            <img src="https://pbs.twimg.com/profile_images/1910300196929671168/sOhm9vhQ_400x400.jpg" alt="OMARZOU991">
+        </div>
+        <h1>OMARZOU991</h1>
+        <div class="typing-text" id="typing"></div>
+        <div class="status-badge" id="status">Available for projects</div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title" id="games-title">My Favorite Games</h2>
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://cdn.akamai.steamstatic.com/steam/apps/271590/header.jpg'); background-size: cover;"></div>
+                <div class="game-content">
+                    <h3 class="game-title">GTA V</h3>
+                    <p class="game-desc">Action, open world, crime</p>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://cms-media.roblox.com/resize=width:768,fit:max/ORMyMISWTDas1y0KNm0j'); background-size: cover; background-position: center;"></div>
+                <div class="game-content">
+                    <h3 class="game-title">Roblox</h3>
+                    <p class="game-desc">Creation, multiplayer, adventure</p>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://cdn2.unrealengine.com/news-header-0111-1920x600-121806466.png?resize=1&w=1024'); background-size: cover; background-position: center;"></div>
+                <div class="game-content">
+                    <h3 class="game-title">Fortnite</h3>
+                    <p class="game-desc">Battle Royale, building</p>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://cdn.cloudflare.steamstatic.com/steam/apps/236870/header.jpg')"></div>
+                <div class="game-content">
+                    <h3 class="game-title">Hitman</h3>
+                    <p class="game-desc">Stealth, assassination, strategy</p>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://cdn.cloudflare.steamstatic.com/steam/apps/252950/header.jpg')"></div>
+                <div class="game-content">
+                    <h3 class="game-title">Rocket League</h3>
+                    <p class="game-desc">Sport, soccer, cars</p>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://www.minecraft.net/content/dam/games/minecraft/marketplace/mediablock-buzzybees.jpg')"></div>
+                <div class="game-content">
+                    <h3 class="game-title">Minecraft</h3>
+                    <p class="game-desc">Survival, creativity, building</p>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-img" style="background-image: url('https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg')"></div>
+                <div class="game-content">
+                    <h3 class="game-title">CS2</h3>
+                    <p class="game-desc">FPS, tactical, competitive</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title" id="social-title">Social Media</h2>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@BIG-FAN666" class="social-link" target="_blank">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+            <a href="https://www.tiktok.com/@omar__777_ff?lang=fr" class="social-link" target="_blank">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+            <a href="https://github.com/OMARZOU991" class="social-link" target="_blank">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://discord.gg/jzkHnBZt" class="social-link" target="_blank">
+                <i class="fab fa-discord"></i>
+                <span>Discord</span>
+            </a>
+            <a href="https://omarzou991.itch.io/" class="social-link" target="_blank">
+                <i class="fas fa-gamepad"></i>
+                <span>Itch.io</span>
+            </a>
+            <a href="https://www.instagram.com/omarzou991/" class="social-link" target="_blank">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <form class="contact-form" id="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="form-name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">How can I contact you?</label>
+                <input type="text" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send 🚀</button>
+        </form>
+    </div>
+
+    <script>
+        let cursorX = 0, cursorY = 0, trailX = 0, trailY = 0;
+        const cursor = document.querySelector('.cursor');
+        const cursorTrail = document.querySelector('.cursor-trail');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+        });
+
+        function animateCursor() {
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            trailX += (cursorX - trailX) * 0.15;
+            trailY += (cursorY - trailY) * 0.15;
+            cursorTrail.style.left = trailX + 'px';
+            cursorTrail.style.top = trailY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for (let i = 0; i < 80; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3
+            });
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 0, 0, 0.3)';
+            
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            themeToggle.textContent = isDark ? '☀️' : '🌙';
+        });
+
+        const texts = ['Developer Gamer'];
+        let textIndex = 0, charIndex = 0;
+        const typingElement = document.getElementById('typing');
+
+        function type() {
+            if (charIndex < texts[textIndex].length) {
+                typingElement.textContent += texts[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            }
+        }
+        type();
+
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            btn.textContent = '⏳ Sending...';
+            btn.disabled = true;
+
+            try {
+                const webhookURL = 'https://discord.com/api/webhooks/1451349823155343442/Y5ddmeEql7ApGpXwI5hGw5g3IGPE9Isjz-lStbRFjVsU69AIgnTFFLxCiTSk2wzyNR5N';
+                
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `📬 **New contact message!**`,
+                        embeds: [{
+                            title: '✉️ Message from Portfolio',
+                            color: 16777215,
+                            fields: [
+                                { name: '👤 Name', value: name, inline: true },
+                                { name: '📧 Contact', value: email, inline: true },
+                                { name: '💬 Message', value: message }
+                            ],
+                            timestamp: new Date().toISOString(),
+                            footer: { text: 'Portfolio OMARZOU991' }
+                        }]
+                    })
+                });
+
+                if (response.ok || response.status === 204) {
+                    btn.textContent = '✅ Message sent!';
+                    btn.style.background = '#00ff88';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        e.target.reset();
+                    }, 3000);
+                } else {
+                    throw new Error('Error');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                btn.textContent = '❌ Sending failed';
+                btn.style.background = '#ff4444';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 3000);
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        });
+
+        const translations = {
+            fr: { status: 'Disponible pour projets', games: 'Mes Jeux Favoris', social: 'Réseaux Sociaux', contact: 'Contact' },
+            en: { status: 'Available for projects', games: 'My Favorite Games', social: 'Social Media', contact: 'Contact' },
+            ar: { status: 'متاح للمشاريع', games: 'ألعابي المفضلة', social: 'وسائل التواصل', contact: 'اتصل بنا' }
+        };
+
+        document.getElementById('lang-switch').addEventListener('change', (e) => {
+            const lang = e.target.value;
+            const t = translations[lang];
+            document.getElementById('status').textContent = t.status;
+            document.getElementById('games-title').textContent = t.games;
+            document.getElementById('social-title').textContent = t.social;
+            document.getElementById('contact-title').textContent = t.contact;
+            document.body.style.direction = lang === 'ar' ? 'rtl' : 'ltr';
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        document.querySelectorAll('.game-card, .social-link').forEach(card => {
+            card.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%, -50%) scale(2)');
+            card.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%, -50%) scale(1)');
+        });
+    </script>
+</body>
+</html>
